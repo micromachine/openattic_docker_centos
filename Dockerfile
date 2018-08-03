@@ -7,11 +7,15 @@ ADD scripts/pgsql_setup.sh /
 RUN yum clean all && \
     rm -rf /var/cache/yum  && \
     rpm --import 'https://download.ceph.com/keys/release.asc' && \
-    rpm -ivh https://download.ceph.com/rpm/el7/noarch/ceph-release-1-1.el7.noarch.rpm && \
+    rpm -ivh https://download.ceph.com/rpm-luminous/el7/noarch/ceph-release-1-1.el7.noarch.rpm && \
     rpm -ivh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm && \
-    yum install -y epel-release httpd git gcc python-devel mod_wsgi nodejs ceph-common-12.2.0 && \
+    yum install -y epel-release httpd git gcc python-devel mod_wsgi nodejs && \
     yum install -y python-dbus python-gobject python-psycopg2 python-pam m2crypto python-netifaces python-netaddr python-pyudev python-memcached numpy python-rtslib python-ceph python-pip postgresql10-server postgresql10-contrib postgresql10-libs npm
-   
+
+
+
+RUN su postgres -c "/usr/pgsql-10/bin/pg_ctl initdb -D /var/lib/pgsql/10/data/" 
+RUN /pgsql_setup.sh init_db
 
 # Download openATTIC
 WORKDIR /srv
