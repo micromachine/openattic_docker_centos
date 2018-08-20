@@ -10,7 +10,7 @@ RUN yum clean all && \
     rpm -ivh https://download.ceph.com/rpm-luminous/el7/noarch/ceph-release-1-1.el7.noarch.rpm && \
     rpm -ivh https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm && \
     yum install -y epel-release httpd git gcc python-devel mod_wsgi nodejs && \
-    yum install -y python-dbus python-gobject python-psycopg2 python-pam m2crypto python-netifaces python-netaddr python-pyudev python-memcached numpy python-rtslib python-ceph python-pip postgresql10-server postgresql10-contrib postgresql10-libs npm
+    yum install -y python-dbus python-gobject python-psycopg2 python-pam m2crypto python-netifaces python-netaddr python-pyudev python-memcached numpy python-rtslib python-ceph python-pip postgresql10-server postgresql10-contrib postgresql10-libs npm ceph
 
 
 
@@ -32,10 +32,11 @@ RUN mkdir -p /etc/openattic && \
     cp rpm/sysconfig/openattic.RedHat /etc/default/openattic && \
     cp version.txt backend/version.txt && \
     ln -sf /srv/openattic/backend /usr/share/openattic && \
-    pip install --upgrade pip && \
+#    pip install --upgrade pip && \
     pip install --upgrade setuptools && \
     pip install --upgrade rtslib-fb && \
-    pip install -r /srv/openattic/requirements/ubuntu-16.04.txt -i https://pypi.doubanio.com/simple/ 
+    pip install -r /srv/openattic/requirements/ubuntu-16.04.txt 
+#-i https://pypi.doubanio.com/simple/ 
 
 
 # Install openATTIC frontend
